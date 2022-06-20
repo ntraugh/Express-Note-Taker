@@ -5,7 +5,9 @@ const app = express();
 // importing our db.json file
 const everyNote = require("./db/db.json")
 
-
+// accept form part data, accept json, and allow pages to show 
+app.use(express.urlencoded({ extended: true}))
+app.use(express.json())
 app.use(express.static("public"))
 
 // this is just "/" because it is our main page
@@ -18,9 +20,7 @@ app.get("/notes", (req, res) =>
 )
 
 
-app.get("/api/notes", (req, res) => {
-    res.json(everyNote)
-})
+app.get("/api/notes", (req, res) => res.json(everyNote));
 
 
 
