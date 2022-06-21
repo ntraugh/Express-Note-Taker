@@ -27,13 +27,14 @@ app.get("/api/notes", (req, res) => res.json(everyNote));
 function saveNewNote (body, allNotes){
     const noteBody = body
     allNotes.push(noteBody)
-    fs.writeFileSync(path.join(__dirname, "./db/db.json"))
-        JSON.stringify(allNotes, null, 2)
+    fs.writeFileSync(path.join(__dirname, "./db/db.json"),
+        JSON.stringify(allNotes, null, 2));
         return noteBody
 }
 
 app.post("/api/notes", (req, res) => {
     const makeNewNote = saveNewNote(req.body, everyNote)
+    console.log(makeNewNote)
     res.json(makeNewNote)
 })
 
