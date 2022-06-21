@@ -4,33 +4,13 @@
     "text": "Test text"
   },
   {
-    "title": "Nate",
-    "text": "Pick up groceries",
-    "note_id": "6069"
+    "title": "Hello",
+    "text": "this is a note",
+    "note_id": "20b8"
   },
   {
-    "title": "stuff",
-    "text": "get stuff",
-    "note_id": "324a"
-  },
-  {
-    "title": "new stuff",
-    "text": "more stuff",
-    "note_id": "ae23"
-  },
-  {
-    "title": "again",
+    "title": "sup",
     "text": "new note",
-    "note_id": "22c4"
-  },
-  {
-    "title": "Hello",
-    "text": "I'm nate",
-    "note_id": "f7e7"
-  },
-  {
-    "title": "Hello",
-    "text": "I'm a new note",
-    "note_id": "2ae1"
+    "note_id": "6658"
   }
 ]

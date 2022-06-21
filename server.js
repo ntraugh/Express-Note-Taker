@@ -4,6 +4,7 @@ const PORT = 3001;
 const app = express();
 const fs = require ("fs");
 const uuid = require('./helpers/uuid');
+const allData = require("./db/db.json")
 
 
 
@@ -25,22 +26,17 @@ app.get("/notes", (req, res) =>
 app.get("/api/notes", (req, res) => {
     const noteData = fs.readFileSync("./db/db.json", "utf-8");
     const notes = noteData.length ? JSON.parse(noteData) : [];
-    return res.json(notes)
+    res.json(notes)
 })
 
-// // function to save the note to the left side of the page
-// function saveNewNote (body, allNotes){
-//     const noteBody = body
-//     allNotes.push(noteBody)
-//     fs.writeFileSync(path.join(__dirname, "./db/db.json"),
-//         JSON.stringify(allNotes, null, 2));
-//         return noteBody
-// }
+app.get("/api/notes/:id", (req, res) => {
+    const requestedId = req.params.id
+    const item = allData.find(item => item.note_id === requestedId)
+    if (item) return res.json(item);
+    return res.json("No match found")
+})
 
 app.post("/api/notes", (req, res) => {
-    // const makeNewNote = saveNewNote(req.body, everyNote)
-    // console.log(makeNewNote)
-    // res.json(makeNewNote)
     console.info(`${req.method} request received to add note`)
     const { title, text } = req.body
     if(title && text){
