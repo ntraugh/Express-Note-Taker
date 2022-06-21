@@ -22,15 +22,14 @@ app.get("/notes", (req, res) =>
     res.sendFile(path.join(__dirname, "public/notes.html"))
 )
 
-
 app.get("/api/notes", (req, res) => {
     const noteData = fs.readFileSync("./db/db.json", "utf-8");
     const notes = noteData.length ? JSON.parse(noteData) : [];
     res.json(notes)
 })
 
-app.get("/api/notes/:id", (req, res) => {
-    const requestedId = req.params.id
+app.get("/notes/:id", (req, res) => {
+    const requestedId = String(req.params.id)
     const item = allData.find(item => item.note_id === requestedId)
     if (item) return res.json(item);
     return res.json("No match found")
@@ -66,6 +65,12 @@ app.post("/api/notes", (req, res) => {
     } else {
         res.status(500).json("Error in posting note")
     }
+})
+
+app.post("/notes/:id", (req, res) => {
+    const requestedId = String(req.params.id)
+    const item = allData.find(item => item.note_id === requestedId)
+    if (item) return res.json(item);
 })
 
 app.delete("/api/notes", (req, res) => {
