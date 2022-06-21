@@ -24,7 +24,11 @@ app.get("/notes", (req, res) =>
 )
 
 
-app.get("/api/notes", (req, res) => res.json(everyNote));
+app.get("/api/notes", (req, res) => {
+    const noteData = fs.readFileSync("./db/db.json", "utf-8");
+    const notes = noteData.length ? JSON.parse(noteData) : [];
+    return res.json(notes)
+})
 
 // // function to save the note to the left side of the page
 // function saveNewNote (body, allNotes){
