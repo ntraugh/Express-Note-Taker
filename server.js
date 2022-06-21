@@ -2,11 +2,9 @@ const express = require("express")
 const path = require("path")
 const PORT = 3001; 
 const app = express();
-// importing our db.json file
-const everyNote = require("./db/db.json")
 const fs = require ("fs");
 const uuid = require('./helpers/uuid');
-const { json } = require("express");
+
 
 
 // accept form part data, accept json, and allow pages to show 
@@ -68,6 +66,9 @@ app.post("/api/notes", (req, res) => {
             body: newNote,
         }
         console.log(response)
+        res.status(201).json(response)
+    } else {
+        res.status(500).json("Error in posting note")
     }
 })
 
