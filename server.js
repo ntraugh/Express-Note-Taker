@@ -28,9 +28,9 @@ app.get("/api/notes", (req, res) => {
     res.json(notes)
 })
 
-app.get("/notes/:id", (req, res) => {
+app.get("/api/notes/:id", (req, res) => {
     const requestedId = String(req.params.id)
-    const item = allData.find(item => item.note_id === requestedId)
+    const item = allData.find(item => item.id === requestedId)
     if (item) return res.json(item);
     return res.json("No match found")
 })
@@ -42,7 +42,7 @@ app.post("/api/notes", (req, res) => {
         const newNote = {
             title, 
             text,
-            note_id: uuid()
+            id: uuid()
         }
         const noteData = fs.readFileSync("./db/db.json", "utf-8");
         const notes = noteData.length ? JSON.parse(noteData) : [];
@@ -67,14 +67,13 @@ app.post("/api/notes", (req, res) => {
     }
 })
 
-app.post("/notes/:id", (req, res) => {
-    const requestedId = String(req.params.id)
-    const item = allData.find(item => item.note_id === requestedId)
-    if (item) return res.json(item);
-})
+// app.post("/notes/:id", (req, res) => {
+//     const requestedId = String(req.params.id)
+//     const item = allData.find(item => item.note_id === requestedId)
+//     if (item) return res.json(item);
+// })
 
-app.delete("/api/notes", (req, res) => {
-
+app.delete("/api/notes/", (req, res) => {
 })
 
 
