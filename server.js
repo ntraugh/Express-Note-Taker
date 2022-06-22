@@ -4,7 +4,7 @@ const PORT = 3001;
 const app = express();
 const fs = require ("fs");
 const uuid = require('./helpers/uuid');
-const allData = require("./db/db.json")
+
 
 
 
@@ -26,13 +26,6 @@ app.get("/api/notes", (req, res) => {
     const noteData = fs.readFileSync("./db/db.json", "utf-8");
     const notes = noteData.length ? JSON.parse(noteData) : [];
     res.json(notes)
-})
-
-app.get("/api/notes/:id", (req, res) => {
-    const requestedId = String(req.params.id)
-    const item = allData.find(item => item.id === requestedId)
-    if (item) return res.json(item);
-    return res.json("No match found")
 })
 
 app.post("/api/notes", (req, res) => {
@@ -67,13 +60,11 @@ app.post("/api/notes", (req, res) => {
     }
 })
 
-// app.post("/notes/:id", (req, res) => {
-//     const requestedId = String(req.params.id)
-//     const item = allData.find(item => item.note_id === requestedId)
-//     if (item) return res.json(item);
-// })
-
-app.delete("/api/notes/", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync('./db/db.json'))
+    const deleteNote = notes.filter((removeNote) => removeNote.id !== req.params.id)
+    fs.writeFileSync("./db/db.json", JSON.stringify(deleteNote))
+    res.json(deleteNote)
 })
 
 
